@@ -599,7 +599,7 @@ function do_enclose( $content, $post_ID ) {
 	foreach ( (array) $post_links as $url ) {
 		if ( $url != '' && !$wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = 'enclosure' AND meta_value LIKE %s", $post_ID, $wpdb->esc_like( $url ) . '%' ) ) ) {
 
-			if ( $headers = wp_get_http_headers( $url) ) {
+			if ( $headers = WP_Http_headers( $url) ) {
 				$len = isset( $headers['content-length'] ) ? (int) $headers['content-length'] : 0;
 				$type = isset( $headers['content-type'] ) ? $headers['content-type'] : '';
 				$allowed_types = array( 'video', 'audio' );
@@ -636,7 +636,7 @@ function do_enclose( $content, $post_ID ) {
  * @param bool   $deprecated Not Used.
  * @return bool|string False on failure, headers on success.
  */
-function wp_get_http_headers( $url, $deprecated = false ) {
+function WP_Http_headers( $url, $deprecated = false ) {
 	if ( !empty( $deprecated ) )
 		_deprecated_argument( __FUNCTION__, '2.7.0' );
 
