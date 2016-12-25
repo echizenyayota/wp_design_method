@@ -137,6 +137,9 @@ if ( ! class_exists( 'Jetpack_Contact_Info_Widget' ) ) {
 			do_action( 'jetpack_contact_info_widget_end' );
 
 			echo $args['after_widget'];
+
+			/** This action is documented in modules/widgets/gravatar-profile.php */
+			do_action( 'jetpack_stats_extra', 'widget_view', 'contact_info' );
 		}
 
 
@@ -175,7 +178,7 @@ if ( ! class_exists( 'Jetpack_Contact_Info_Widget' ) ) {
 
 				// Get the lat/lon of the user specified address.
 				$address = $this->urlencode_address( $instance['address'] );
-				$path    = "http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=" . $address;
+				$path    = "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=" . $address;
 				/** This action is documented in modules/widgets/contact-info.php */
 				$key = apply_filters( 'jetpack_google_maps_api_key', $instance['apikey'] );
 
@@ -262,7 +265,7 @@ if ( ! class_exists( 'Jetpack_Contact_Info_Widget' ) ) {
 					<?php _e( 'Google Maps API Key', 'jetpack' ); ?>
 					<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'apikey' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'apikey' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['apikey'] ); ?>" />
 					<br />
-					<small><?php printf( wp_kses( __( 'Google now requires an API key to use their maps on your site. <a href="%s">See our documentation</a> for instructions on acquiring a key.' ), array( 'a' => array( 'href' => true ) ) ), 'https://jetpack.com/support/extra-sidebar-widgets/contact-info-widget/' ); ?></small>
+					<small><?php printf( wp_kses( __( 'Google now requires an API key to use their maps on your site. <a href="%s">See our documentation</a> for instructions on acquiring a key.', 'jetpack' ), array( 'a' => array( 'href' => true ) ) ), 'https://jetpack.com/support/extra-sidebar-widgets/contact-info-widget/' ); ?></small>
 				</label>
 			</p>
 
@@ -289,7 +292,7 @@ if ( ! class_exists( 'Jetpack_Contact_Info_Widget' ) ) {
 		 */
 		function build_map_link( $address ) {
 			// Google map urls have lots of available params but zoom (z) and query (q) are enough.
-			return "http://maps.google.com/maps?z=16&q=" . $this->urlencode_address( $address );
+			return "https://maps.google.com/maps?z=16&q=" . $this->urlencode_address( $address );
 		}
 
 

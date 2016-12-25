@@ -6,6 +6,15 @@ class Jetpack_Sync_Module_Comments extends Jetpack_Sync_Module {
 		return 'comments';
 	}
 
+	public function get_object_by_id( $object_type, $id ) {
+		$comment_id = intval( $id );
+		if ( $object_type === 'comment' && $comment = get_comment( $comment_id ) ) {
+			return $this->filter_comment( $comment );
+		}
+
+		return false;
+	}
+
 	public function init_listeners( $callable ) {
 		add_action( 'wp_insert_comment', $callable, 10, 2 );
 		add_action( 'deleted_comment', $callable );
@@ -46,9 +55,9 @@ class Jetpack_Sync_Module_Comments extends Jetpack_Sync_Module {
 		add_filter( 'jetpack_sync_before_send_jetpack_full_sync_comments', array( $this, 'expand_comment_ids' ) );
 	}
 
-	public function enqueue_full_sync_actions( $config ) {
+	public function enqueue_full_sync_actions( $config, $max_items_to_enqueue, $state ) {
 		global $wpdb;
-		return $this->enqueue_all_ids_as_action( 'jetpack_full_sync_comments', $wpdb->comments, 'comment_ID', $this->get_where_sql( $config ) );
+		return $this->enqueue_all_ids_as_action( 'jetpack_full_sync_comments', $wpdb->comments, 'comment_ID', $this->get_where_sql( $config ), $max_items_to_enqueue, $state );
 	}
 
 	public function estimate_full_sync_actions( $config ) {
