@@ -893,3 +893,55 @@ object {
 .gallery-caption {
 	display: block;
 }
+
+/*
+Theme Name: _s
+Layout: Content-Sidebar
+*/
+
+.content-area {
+	float: left;
+	margin: 0 -25% 0 0;
+	width: 100%;
+}
+
+.site-content {
+	margin: 0 25% 0 0;
+}
+
+.site-main .widget-area {
+	float: right;
+	overflow: hidden;
+	width: 25%;
+}
+
+.site-footer {
+	clear: both;
+	width: 100%;
+}
+
+/*
+ * Theme Name: _s
+ *
+ * Layout: Content-Sidebar
+ *
+ * Learn more: https://developer.wordpress.org/themes/basics/template-files/
+*/
+
+.content-area {
+	float: left;
+	margin: 0 -25% 0 0;
+	width: 100%;
+}
+.site-main {
+	margin: 0 25% 0 0;
+}
+.site-content .widget-area {
+	float: right;
+	overflow: hidden;
+	width: 25%;
+}
+.site-footer {
+	clear: both;
+	width: 100%;
+}
